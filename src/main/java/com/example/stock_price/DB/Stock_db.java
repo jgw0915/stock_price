@@ -54,11 +54,12 @@ public class Stock_db {
         MongoCollection<Document> collection = database.getCollection("stock");
         collection.deleteOne(Filters.eq("id",id));
     }
-    public void update_price(String id,String price){
+    public void update_price(String id,Stock stock){
         MongoCollection<Document> collection = database.getCollection("stock");
 
         // Update a document where key1 equals "value1"
-        collection.updateOne(Filters.eq("id", "id"), Updates.set("price", price));
+        collection.updateOne(Filters.eq("id", id), Updates.set("price", stock.getPrice()));
+        collection.updateOne(Filters.eq("id", id), Updates.set("date", stock.getDate()));
     }
 
     public static void main(String[] args) {
