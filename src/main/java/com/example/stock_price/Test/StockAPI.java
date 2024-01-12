@@ -26,8 +26,10 @@ public class StockAPI {
 
     public void add_stock_to_api(ArrayList<String> s_l){
         synchronized (lock) {
+
+            for (String s : s_l) {
             if (s.startsWith("6")) stock_list_otc.add(s);
-            else  stock_list_tse.add(s);
+                else stock_list_tse.add(s);
         }
         String stock_list1 = stock_list_tse.stream()
                 .map(stock -> "tse_" + stock + ".tw")
@@ -41,6 +43,33 @@ public class StockAPI {
         query_url = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=" + stock_list;
 
     }
+    public void delete_stock_in_api(String id){
+        synchronized (lock) {
+            try {
+                for (String s : stock_list_otc) {
+                    if (s.equals(id)) stock_list_otc.remove(s);
+                }
+                for (String s : stock_list_tse) {
+                    if (s.equals(id)) stock_list_tse.remove(s);
+                }
+                String stock_list1 = stock_list_tse.stream()
+                        .map(stock -> "tse_" + stock + ".tw")
+                        .collect(Collectors.joining("|"));
+
+                String stock_list2 = stock_list_otc.stream()
+                        .map(stock -> "otc_" + stock + ".tw")
+                        .collect(Collectors.joining("|"));
+
+                String stock_list = stock_list1 + "|" + stock_list2;
+                query_url = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=" + stock_list;
+            }catch (ConcurrentModificationException e){
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
 
     public List<Map<String,Object>> get_response(){
         try {
@@ -113,8 +142,9 @@ public class StockAPI {
         System.setProperty("file.encoding", "UTF-8");
         ArrayList<String> al = new ArrayList<String>();
         al.add("0050");
-        al.add("2330");
+        al.add("6789");
         StockAPI api = new StockAPI();
+        api.add_stock_to_api(al);
         List<Map<String,Object>> l_m = api.get_response();
         for (Map<String,Object> m :l_m){
             System.out.println(m);
