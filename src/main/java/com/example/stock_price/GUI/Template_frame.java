@@ -405,6 +405,7 @@ public class Template_frame extends JFrame {
         class Refresh_stock_price_task implements Runnable{
             private volatile boolean exit = false;
             private SimpleDateFormat s_sdf = new SimpleDateFormat("ss");
+            private SimpleDateFormat d_sdf = new SimpleDateFormat("dd");
             public void stop() {
                 exit = true;
             }
@@ -420,16 +421,41 @@ public class Template_frame extends JFrame {
                     while(!exit){
                         while(Integer.valueOf(s_sdf.format(new Date()))%5 != 4 ) ;
                         Thread.sleep(1000);
-                        Random rand = new Random();
-                        float randomFloat = rand.nextFloat() * 0.4f - 0.2f;
-                        System.out.println(randomFloat);
-                        Float adjust = round(randomFloat,2);
-                        stock.setPrice(String.format("%.2f",Float.parseFloat(stock.getPrice())+adjust));
+//                        Random rand = new Random();
+//                        float randomFloat = rand.nextFloat() * 0.4f - 0.2f;
+//                        System.out.println(randomFloat);
+//                        Float adjust = round(randomFloat,2);
+                        String price = null;
+                        String yesterday_price = null;
+                        if (stock_api_response!=null){
+                            for (Map<String,Object> m :stock_api_response){
+                                if (m.get("股票代號").equals(stock.getId())){
+                                    price = m.get("成交價").toString();
+                                    yesterday_price = m.get("昨收價").toString();
+                                }
+                            }
+                        }
+                        float adjust;
+                        Date now_date = resetTimeToMidnight(new Date());
+                        Date last_update_date = resetTimeToMidnight(stock.getDate());
+
+                        if ((last_update_date.before(now_date) || stock.getPrice()==null) && yesterday_price!=null ) {
+                            stock.setPrice(String.format("%.2f",Float.valueOf(yesterday_price)));
+                            stock.setDate(new Date());
+                            db.update_price(stock.getId(),stock);
+                            repaint();
+                        }
+                        if (price != null && !price.equals("-")){
+                            if (stock.getPrice() == null)stock.setPrice(price);
+                            adjust =Float.valueOf(price)-Float.valueOf(yesterday_price);
+                            stock.setPrice( String.format("%.2f",Float.valueOf(price)));
                         stock.setDate(new Date());
+                            db.update_price(stock.getId(),stock);
                         if (adjust>0) stock.setState(Stock_State.UP);
                         else if (adjust<0) stock.setState(Stock_State.DOWN);
                         else stock.setState(Stock_State.FLAT);
                         repaint();
+                        }
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -526,6 +552,7 @@ public class Template_frame extends JFrame {
                              dashBoard_container.remove(c);
                             }
                             interest_stock.removeIf(s->s.getId().equals(stock.getId()));
+                            stockAPI.delete_stock_in_api(stock.getId());
                             db.delete_by_id(stock.getId());
                             repaint_dashboard();
                         }
