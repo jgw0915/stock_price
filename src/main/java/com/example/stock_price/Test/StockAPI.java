@@ -18,13 +18,14 @@ public class StockAPI {
     private ArrayList<String> stock_list_tse ;
     private ArrayList<String> stock_list_otc ;
     private String query_url;
+    private final Object lock = new Object();
     public StockAPI(){
         stock_list_tse = new ArrayList<String>();
         stock_list_otc = new ArrayList<String>();
     }
 
     public void add_stock_to_api(ArrayList<String> s_l){
-        for (String s : s_l){
+        synchronized (lock) {
             if (s.startsWith("6")) stock_list_otc.add(s);
             else  stock_list_tse.add(s);
         }
