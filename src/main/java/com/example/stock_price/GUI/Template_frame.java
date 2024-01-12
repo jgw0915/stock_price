@@ -180,18 +180,12 @@ public class Template_frame extends JFrame {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                stockAPI = new StockAPI();
                 SimpleDateFormat s_sdf = new SimpleDateFormat("ss");
                 try {
                     while(true){
                         while(Integer.valueOf(s_sdf.format(new Date()))%5 != 3) ;
                         Thread.sleep(1000);
                         if (interest_stock.size() != 0){
-                            ArrayList<String> stock_list = new ArrayList<>();
-                            for (Stock s: interest_stock){
-                                stock_list.add(s.getId());
-                            }
-                            stockAPI.add_stock_to_api(stock_list);
                             stock_api_response = stockAPI.get_response();
                         }
                     }
