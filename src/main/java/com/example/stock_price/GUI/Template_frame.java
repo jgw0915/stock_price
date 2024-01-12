@@ -46,6 +46,7 @@ public class Template_frame extends JFrame {
     private final Object lock = new Object();
     private List<Map<String,Object>> stock_api_response;
     private StockAPI stockAPI;
+    private ArrayList<String> stock_id_list = new ArrayList<>();
 
     private int card_height = 200;
     private int card_width = 330;
@@ -58,6 +59,9 @@ public class Template_frame extends JFrame {
         db = new Stock_db("Stock_db");
         stock_id = crawler.getStock_id();
         interest_stock.addAll(db.get_all_stock());
+        for (Stock s: interest_stock){
+            stock_id_list.add(s.getId());
+        }
 
         title = new JLabel("台灣股票即時資訊");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -114,7 +118,9 @@ public class Template_frame extends JFrame {
         scrollPane_container.add(dashboard_scrollPane);
 
         add(scrollPane_container);
-
+        stockAPI = new StockAPI();
+        stockAPI.add_stock_to_api(stock_id_list);
+        fetch_data_with_api();
 //        c.fill = GridBagConstraints.HORIZONTAL;
 //        c.gridx=1;
 //        c.gridy=0;
@@ -322,9 +328,14 @@ public class Template_frame extends JFrame {
                             if (item.equals(stock_name)){
                                 String[] split_item = item.split(" ");
                                 String id = split_item[0];
+                                stock_id_list.add(id);
                                 if (!stock_Already_In(id))
                                 {
                                     JLabel label = new JLabel("抓取資料中...");
+                                    ArrayList<String> al = new ArrayList<String>();
+                                    al.add(id);
+                                    stockAPI.add_stock_to_api(al);
+                                    stock_api_response = stockAPI.get_response();
                                     label.setFont(new Font("SansSerif", Font.BOLD, 20));
                                     GridBagConstraints c = new GridBagConstraints();
                                     c.fill = GridBagConstraints.HORIZONTAL;
@@ -337,8 +348,17 @@ public class Template_frame extends JFrame {
                                     textField_and_button_container.repaint();
                                     System.out.println(id);
                                     String name = split_item[1];
-                                    String price = crawler.crawl_data_in_link(id);
+                                    String price = null;
+                                    for (Map<String,Object> m :stock_api_response){
+                                        if (m.get("股票代號").equals(id)){
+                                            price = m.get("成交價").toString();
+                                        }
+                                    }
                                     System.out.println(name);
+                                    if(price!= null ){
+                                        if (price.equals("-")) price = null;
+                                        else price = String.format("%.2f",Float.valueOf(price));
+                                    }
                                     Stock stock = new Stock(name, id, price, new Date(), Stock_State.FLAT);
                                     add_to_dashBoard(stock);
                                     textField_and_button_container.remove(label);
