@@ -9,6 +9,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -67,7 +68,9 @@ public class Stock_crawler {
 
     public void read_stock_id() {
 
-        ArrayList file_list = fileList("C:\\Users\\jgw09\\School\\台科\\大三上\\進階物件導向程式語言\\期末\\stock_price\\src\\main\\java\\com\\example\\stock_price\\Crawler\\stock_id");
+        URL url = this.getClass().getClassLoader().getResource("stock_id");
+        String stock_id_file_path = url.getPath();
+        ArrayList file_list = fileList(stock_id_file_path);
         file_list.forEach(e->{
             System.out.println(e.toString());
         });
