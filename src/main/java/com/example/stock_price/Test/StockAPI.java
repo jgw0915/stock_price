@@ -19,6 +19,7 @@ public class StockAPI {
     private ArrayList<String> stock_list_otc ;
     private String query_url;
     private final Object lock = new Object();
+
     public StockAPI(){
         stock_list_tse = new ArrayList<String>();
         stock_list_otc = new ArrayList<String>();
@@ -28,20 +29,20 @@ public class StockAPI {
         synchronized (lock) {
 
             for (String s : s_l) {
-            if (s.startsWith("6")) stock_list_otc.add(s);
+                if (s.startsWith("6")) stock_list_otc.add(s);
                 else stock_list_tse.add(s);
+            }
+            String stock_list1 = stock_list_tse.stream()
+                    .map(stock -> "tse_" + stock + ".tw")
+                    .collect(Collectors.joining("|"));
+
+            String stock_list2 = stock_list_otc.stream()
+                    .map(stock -> "otc_" + stock + ".tw")
+                    .collect(Collectors.joining("|"));
+
+            String stock_list = stock_list1 + "|" + stock_list2;
+            query_url = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=" + stock_list;
         }
-        String stock_list1 = stock_list_tse.stream()
-                .map(stock -> "tse_" + stock + ".tw")
-                .collect(Collectors.joining("|"));
-
-        String stock_list2 = stock_list_otc.stream()
-                .map(stock -> "otc_" + stock + ".tw")
-                .collect(Collectors.joining("|"));
-
-        String stock_list = stock_list1 + "|" + stock_list2;
-        query_url = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=" + stock_list;
-
     }
     public void delete_stock_in_api(String id){
         synchronized (lock) {
@@ -92,7 +93,6 @@ public class StockAPI {
                 }
                 reader.close();
 
-                System.out.println(response.toString());
 
                 JSONObject data = new JSONObject(response.toString());
 
@@ -117,7 +117,8 @@ public class StockAPI {
                 }
 
                 for (Map<String, Object> stockMap : dataList) {
-                    double price = Double.parseDouble(stockMap.get("成交價") != null ? stockMap.get("成交價").toString() : "0");
+                    System.out.println(stockMap.get("成交價"));
+                    double price = Double.parseDouble(stockMap.get("成交價") == null && !stockMap.get("成交價").toString().equals("-") ? stockMap.get("成交價").toString() : "0");
                     double prevPrice = Double.parseDouble(stockMap.get("���收價") != null ? stockMap.get("���收價").toString():"1");
                     double result = (price - prevPrice) / prevPrice * 100;
                     stockMap.put("���跌百分比", result == -100 ? "-" : result);
@@ -128,9 +129,9 @@ public class StockAPI {
                     stockMap.put("資料更新時間", date.toString());
                 }
 //
-//                for (Map<String, Object> stockMap : dataList) {
-//                    System.out.println(stockMap);
-//                }
+                for (Map<String, Object> stockMap : dataList) {
+                    System.out.println(stockMap);
+                }
                 return dataList;
             }
         } catch (Exception e) {
@@ -146,9 +147,6 @@ public class StockAPI {
         StockAPI api = new StockAPI();
         api.add_stock_to_api(al);
         List<Map<String,Object>> l_m = api.get_response();
-        for (Map<String,Object> m :l_m){
-            System.out.println(m);
-        }
     }
 }
 
