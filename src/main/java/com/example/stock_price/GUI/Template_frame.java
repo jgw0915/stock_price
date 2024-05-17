@@ -121,33 +121,6 @@ public class Template_frame extends JFrame {
         stockAPI = new StockAPI();
         stockAPI.add_stock_to_api(stock_id_list);
         fetch_data_with_api();
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.gridx=1;
-//        c.gridy=0;
-//        c.gridwidth=1;
-//        list_and_scrollPanel_container.add(scrollPane_container,c);
-//
-//        buy_stock_list = new JList<Stock>();
-//        buy_stock_list.setModel(list_model);
-//        ListCellRenderer renderer = new CustomerRendererPane();
-//        buy_stock_list.setCellRenderer(renderer);
-//        buy_stock_list.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-//        buy_stock_list.addListSelectionListener((ListSelectionEvent e) -> {
-//            if(e.getValueIsAdjusting()) {
-//                System.out.println("select " + buy_stock_list.getSelectedIndex());
-//            }
-//        });
-//        list_scrollPane = new JScrollPane(buy_stock_list);
-//
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.gridx=0;
-//        c.gridy=0;
-//        c.gridwidth=1;
-//
-//        list_and_scrollPanel_container.add(list_scrollPane,c);
-//
-//        addToPane(list_and_scrollPanel_container);
-
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(card_width*3+100,900);
@@ -449,12 +422,12 @@ public class Template_frame extends JFrame {
                             if (stock.getPrice() == null)stock.setPrice(price);
                             adjust =Float.valueOf(price)-Float.valueOf(yesterday_price);
                             stock.setPrice( String.format("%.2f",Float.valueOf(price)));
-                        stock.setDate(new Date());
+                            stock.setDate(new Date());
                             db.update_price(stock.getId(),stock);
-                        if (adjust>0) stock.setState(Stock_State.UP);
-                        else if (adjust<0) stock.setState(Stock_State.DOWN);
-                        else stock.setState(Stock_State.FLAT);
-                        repaint();
+                            if (adjust>0) stock.setState(Stock_State.UP);
+                            else if (adjust<0) stock.setState(Stock_State.DOWN);
+                            else stock.setState(Stock_State.FLAT);
+                            repaint();
                         }
                     }
                 }catch (Exception e){
