@@ -4,7 +4,7 @@ import com.example.stock_price.Crawler.Stock_crawler;
 import com.example.stock_price.DB.Stock_db;
 import com.example.stock_price.Model.Stock;
 import com.example.stock_price.Model.Stock_State;
-import com.example.stock_price.Test.StockAPI;
+import com.example.stock_price.API.StockAPI;
 
 import java.awt.*;
 import java.util.List;
@@ -22,7 +22,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
 
 public class Template_frame extends JFrame {
     private JLabel title;
