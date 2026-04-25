@@ -1,9 +1,191 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="Page-1" id="lIHU-WZ5_E-X9y5jDOGS">
-    <mxGraphModel dx="1273" dy="711" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram name="Resource-Aware Ensemble Framework" id="lIHU-WZ5_E-X9y5jDOGS">
+    <mxGraphModel dx="1498" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;align=center;" value="Resource-Aware Ensemble Model Selection under Parallel Inference Scalability" vertex="1">
+          <mxGeometry height="40" width="720" x="330" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="資料前處理" vertex="1">
+          <mxGeometry height="40" width="180" x="570" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="資料分割 (Training / Validation / Test)" vertex="1">
+          <mxGeometry height="50" width="250" x="535" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="Training set 模型生成用" vertex="1">
+          <mxGeometry height="50" width="170" x="235" y="221" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="Validation set 選擇 N* 用" vertex="1">
+          <mxGeometry height="50" width="170" x="615" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="Test set 最終評估用" vertex="1">
+          <mxGeometry height="50" width="170" x="1000" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-7" parent="1" style="swimlane;html=1;rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;startSize=30;" value="Stage 1. PSO-based Base Model Generation" vertex="1">
+          <mxGeometry height="570" width="410" x="110" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-8" parent="pQhJ87TkqI-DXiSs7HSb-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="輸出高品質 base model pool" vertex="1">
+          <mxGeometry height="50" width="220" x="180" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-9" parent="pQhJ87TkqI-DXiSs7HSb-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="更新粒子速度與位置" vertex="1">
+          <mxGeometry height="50" width="130" x="10" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-10" parent="pQhJ87TkqI-DXiSs7HSb-7" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="收斂或達到迭代終止條件？" vertex="1">
+          <mxGeometry height="70" width="150" x="135" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-11" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-7" source="pQhJ87TkqI-DXiSs7HSb-10" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-8" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-12" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-7" source="pQhJ87TkqI-DXiSs7HSb-10" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-9" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-13" parent="1" style="swimlane;html=1;rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;startSize=30;" value="Stage 2. Resource-Aware Selection on Validation Set" vertex="1">
+          <mxGeometry height="570" width="425" x="555" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-14" parent="pQhJ87TkqI-DXiSs7HSb-13" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;" value="For N = 1...K" vertex="1">
+          <mxGeometry height="60" width="130" x="150" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-15" parent="pQhJ87TkqI-DXiSs7HSb-13" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="選擇最佳 ensemble size N*" vertex="1">
+          <mxGeometry height="50" width="240" x="92.5" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-16" parent="pQhJ87TkqI-DXiSs7HSb-13" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="計算 resource-aware objective Score(N)=Accuracy(N)-λT_par(N)" vertex="1">
+          <mxGeometry height="55" width="300" x="65" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-17" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-13" source="pQhJ87TkqI-DXiSs7HSb-16" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;dashed=1;edgeStyle=orthogonalEdgeStyle;" target="pQhJ87TkqI-DXiSs7HSb-14" value="next N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="215" y="410" />
+              <mxPoint x="80" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-18" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-13" source="pQhJ87TkqI-DXiSs7HSb-16" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-15" value="after all N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-19" parent="1" style="swimlane;html=1;rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;startSize=30;" value="Stage 3. Final Evaluation on Test Set" vertex="1">
+          <mxGeometry height="570" width="330" x="1030" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-20" parent="pQhJ87TkqI-DXiSs7HSb-19" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="使用固定 N* 在 Test set 平行推論" vertex="1">
+          <mxGeometry height="55" width="210" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-21" parent="pQhJ87TkqI-DXiSs7HSb-19" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="輸出最終結果 Accuracy / Latency / Trade-off" vertex="1">
+          <mxGeometry height="55" width="210" x="50" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-22" parent="pQhJ87TkqI-DXiSs7HSb-19" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="實驗結果評估與比較" vertex="1">
+          <mxGeometry height="50" width="210" x="50" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-23" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-19" source="pQhJ87TkqI-DXiSs7HSb-20" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-24" edge="1" parent="pQhJ87TkqI-DXiSs7HSb-19" source="pQhJ87TkqI-DXiSs7HSb-21" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="生成初始粒子 Randomly generated base models" vertex="1">
+          <mxGeometry height="55" width="190" x="225" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="評估粒子適應值 fitness: accuracy / quality" vertex="1">
+          <mxGeometry height="55" width="190" x="225" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="從 model pool 選取 N 個 models" vertex="1">
+          <mxGeometry height="45" width="240" x="650" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="模型層級平行推論 model_1(x),...,model_N(x)" vertex="1">
+          <mxGeometry height="55" width="240" x="650" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="量測 Accuracy(N) 與 T_par(N)" vertex="1">
+          <mxGeometry height="45" width="240" x="650" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;fontSize=13;" value="建立 / 擬合 latency function T_par(N)" vertex="1">
+          <mxGeometry height="50" width="240" x="650" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-31" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="保留學長 PSO 架構：由隨機生成模型開始迭代，尋找高品質 base models。" vertex="1">
+          <mxGeometry height="65" width="460" x="75" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-32" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="新增貢獻：在 PSO 後加入 deployment-aware decision layer，以 validation set 決定最佳 N。" vertex="1">
+          <mxGeometry height="70" width="450" x="555" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-33" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-2" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-34" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-35" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-36" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-37" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-4" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-38" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-25" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-39" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-26" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="pQhJ87TkqI-DXiSs7HSb-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-40" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-9" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;" target="pQhJ87TkqI-DXiSs7HSb-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-41" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-8" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="360" />
+            </Array>
+            <mxPoint x="720" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-42" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-5" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;dashed=1;" target="pQhJ87TkqI-DXiSs7HSb-28" value="Validation data">
+          <mxGeometry relative="1" x="0.1999" y="10" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="990" y="250" />
+              <mxPoint x="990" y="390" />
+              <mxPoint x="990" y="520" />
+              <mxPoint x="940" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-43" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-14" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-44" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-27" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-45" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-28" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-46" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-29" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-47" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-30" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-48" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-6" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;dashed=1;" target="pQhJ87TkqI-DXiSs7HSb-20" value="Test data">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1370" y="250" />
+              <mxPoint x="1370" y="438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-49" edge="1" parent="1" source="pQhJ87TkqI-DXiSs7HSb-15" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" target="pQhJ87TkqI-DXiSs7HSb-20" value="fixed N*">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="835" />
+              <mxPoint x="1010" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pQhJ87TkqI-DXiSs7HSb-50" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="Test set 僅用於 final evaluation， 不參與 N* 選擇。" vertex="1">
+          <mxGeometry height="70" width="330" x="1030" y="890" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
